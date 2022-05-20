@@ -1,0 +1,6 @@
+Colors are:
+#000000
+#14213D
+#FCA311
+#E5E5E5
+#FFFFFF
