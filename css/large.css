@@ -6,25 +6,38 @@
 	.heading h1 {
 		font-size: 3rem;
 		text-align: center;
-        margin: 0 0 0 675px;
+		margin: 0 0 0 675px;
 	}
 
-	.sub {
-		letter-spacing: 1.5pt;
-		font-size: larger;
-		margin-left: 17px;
-	}
 	.navigation {
 		display: flex;
 	}
+
 	.navigation li {
 		display: block;
 		flex: 1 1 auto;
 	}
+
 	.navigation a {
 		text-align: center;
 	}
+
 	.navigation li:first-child {
 		display: none;
+	}
+
+	.table1 {
+		left: 38%;
+		width: 700px;
+	}
+
+	.table2 {
+		top: 55%;
+		left: 42%;
+		width: 600px;
+	}
+
+	.button {
+		width: 625px;
 	}
 }
