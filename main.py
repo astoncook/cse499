@@ -5,20 +5,14 @@ import datetime
 import requests
 import calendar
 import dateutil.relativedelta
-import os
+
 app = Flask(__name__, static_folder='')
 
-api_key = os.environ.get('API_Key')
-
-# Link the html
-
+api_key = "caibu3aad3i2a9kc4c90"
 
 @app.route('/', methods=['GET'])
 def home():
     return app.send_static_file('stockInformation.html')
-
-# Get the Company Information
-
 
 @app.route('/test', methods=['GET'])
 def test():
@@ -30,9 +24,6 @@ def test():
     company = requests.get(url1)
     company = company.json()
     return company
-
-# Get the Stock Summary
-
 
 @app.route('/route2', methods=['GET'])
 def quote():
@@ -46,9 +37,6 @@ def quote():
         name, api_key)
     data2 = requests.get(url3)
     return stock
-
-# Get the stock chart
-
 
 @app.route('/route3', methods=['GET'])
 def graph():

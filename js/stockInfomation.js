@@ -181,6 +181,7 @@ function charts() {
         }]
       },
 
+      //stock chart
       series: [{
         name: global + ' Stock Price',
         data: stockprice,
