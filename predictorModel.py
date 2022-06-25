@@ -16,10 +16,12 @@ def prediction(stock, numberDays):
     from datetime import date, timedelta
     # load the data
 
+    # range of days to predict
     df = yf.download(stock, period='60d')
     df.reset_index(inplace=True)
     df['Day'] = df.index
 
+    # create a new column with the date of the day
     days = list()
     for i in range(len(df.Day)):
         days.append([i])
@@ -27,11 +29,13 @@ def prediction(stock, numberDays):
     X = days
     Y = df[['Close']]
 
+    # split the data into training and testing sets
     x_train, x_test, y_train, y_test = train_test_split(X,
                                                         Y,
                                                         test_size=0.1,
                                                         shuffle=False)
 
+    # create and fit the model
     gsc = GridSearchCV(
         estimator=SVR(kernel='rbf'),
         param_grid={
@@ -47,6 +51,7 @@ def prediction(stock, numberDays):
         verbose=0,
         n_jobs=-1)
 
+    # fit the model
     y_train = y_train.values.ravel()
     y_train
     grid_result = gsc.fit(x_train, y_train)
@@ -62,6 +67,7 @@ def prediction(stock, numberDays):
 
     rbf_svr.fit(x_train, y_train)
 
+    # make predictions on the testing set
     output_days = list()
     for i in range(1, numberDays):
         output_days.append([i + x_test[-1][0]])
@@ -72,6 +78,7 @@ def prediction(stock, numberDays):
         current += timedelta(days=1)
         dates.append(current)
 
+    # make predictions on the testing set
     fig = go.Figure()
     fig.add_trace(
         go.Scatter(

@@ -11,6 +11,7 @@ import plotly.express as px
 from sklearn.svm import SVR
 from predictorModel import prediction
 
+# load the data
 app = dash.Dash(
     __name__,)
 server = app.server
@@ -63,6 +64,7 @@ app.layout = html.Div(
               [Input("prediction", "n_clicks")],
               [State("number_days", "value"),
                State("stockTicker", "value")])
+
 def stockPrediction(n, number_days, val):
     if n == None:
         return [""]
