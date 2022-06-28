@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/medium.css" />
     <link rel="stylesheet" href="css/large.css" />
     <script src="js/nav.js" defer></script>
+    <?php
+    echo shell_exec("python stockPredictor.py");
+    ?>
   </head>
   <body>
     <header>
@@ -28,31 +31,32 @@
     <nav>
       <ul class="navigation responsive">
         <li><a class="menu" href="#">Menu</a></li>
-        <li><a href="stockInformation.html">Stock Information</a></li>
-        <li><a href="stockPredictor.html">Stock Predictor</a></li>
+        <li><a href="stockInformation.php">Stock Information</a></li>
+        <li><a href="stockPredictor.php">Stock Predictor</a></li>
       </ul>
     </nav>
     <main>
-      <div>
-        <div>
-          <p>Stock Predictor</p>
-          <div>
+          <p class="start">Stock Predictor</p>
+          <div class="input-place">
             <p>Input stock ticker:</p>
-            <div>
-              <input id="stockTicker", type="text">
-              <div>
-                <input id="days", type="text", placeholder="Enter number of days">
-                <button class="predictor-btn", id="predictor">Predict</button>
-                <div>
-                  <div id="graphs-content"></div>
-                  <div id="main-content"></div>
-                  <div id="prediction-content"></div>
-                </div>
-              </div>
+            <div class="form">
+              <input id="stockTicker" type="text" step="any" persisted_props="value" persisted_type="local" value>
             </div>
           </div>
+          <div class="buttons">
+            <input type="text" placeholder="number of days" id="numberDays" step="any" persisted_props="value" persisted_type="local" value>
+            <button id="predictor" class="prediction-btn">predictor</button>
+          </div>
         </div>
-      </div>
+        <div class="content">
+          <div class="header">
+            <img id="logo">
+            <p id="ticker"></p>
+          </div>
+        <div id="description" class="ticker"></div>
+        <div id="graphs-content"></div>
+        <div id="main-content"></div>
+        <div id="prediction-content"></div> 
     </main>
   </body>
   <footer></footer>

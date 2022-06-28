@@ -1,15 +1,9 @@
-import dash
-from dash import dcc
-from dash import html
-from datetime import datetime as dt
-import yfinance as yf
+from dash import dash, dcc, html
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
-import pandas as pd
-import plotly.graph_objs as go
-import plotly.express as px
-from sklearn.svm import SVR
-from predictorModel import prediction
+from predictorModel import predictor
+import requests
+from bs4 import BeautifulSoup
 
 # load the data
 app = dash.Dash(
@@ -26,18 +20,18 @@ app.layout = html.Div(
                     html.Div([
                         dcc.Input(id="stockTicker", type="text"),
                     ],
-                             className="form")
+                        className="form")
                 ],
-                         className="input-place"),
-               
+                    className="input-place"),
+
                 html.Div([
-                    dcc.Input(id="number_days",
+                    dcc.Input(id="numberDays",
                               type="text",
                               placeholder="number of days"),
                     html.Button(
-                        "prediction", className="prediction-btn", id="prediction")
+                        "predictor", className="prediction-btn", id="predictor")
                 ],
-                         className="buttons"),
+                    className="buttons"),
             ],
             className="nav"),
 
@@ -61,16 +55,16 @@ app.layout = html.Div(
 
 # Get the prediction and the graph
 @app.callback([Output("prediction-content", "children")],
-              [Input("prediction", "n_clicks")],
-              [State("number_days", "value"),
+              [Input("predictor", "n_clicks")],
+              [State("numberDays", "value"),
                State("stockTicker", "value")])
 
-def stockPrediction(n, number_days, val):
+def stockPrediction(n, numberDays, val):
     if n == None:
         return [""]
     if val == None:
         raise PreventUpdate
-    fig = prediction(val, int(number_days) + 1)
+    fig = predictor(val, int(numberDays) + 1)
     return [dcc.Graph(figure=fig)]
 
 

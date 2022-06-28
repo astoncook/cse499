@@ -26,14 +26,19 @@
         <h1>Stocks 101</h1>
       </section>
     </header>
-    <nav>
-      <ul class="navigation responsive">
-        <li><a class="menu" href="#">Menu</a></li>
-        <li><a href="stockInformation.html">Stock Information</a></li>
-        <li><a href="stockPredictor.html">Stock Predictor</a></li>
+    <nav id="nav">
+    <div class="innertube">
+      <h1>Navigation</h1>
+      <ul>
+        <li><a data-page="stockInformation.php">Stock Information</a></li>
+        <li><a data-page="stockPredictor.php">Stock Predictor</a></li>
       </ul>
-    </nav>
+    </div>
+  </nav>
     <main>
+    <div class="innertube">
+      <div id="page"></div>
+    </div>
       <div class="back">
         <h1 class="t1">Stock Search</h1>
         <form action="/test" method="get" id="result" name="myform">

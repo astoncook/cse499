@@ -1,42 +1,31 @@
-def prediction(stock, numberDays):
-    import dash
-    from dash import dcc
-    from dash import html
-    from datetime import datetime as dt
-    import yfinance as yf
-    from dash.dependencies import Input, Output, State
-    from dash.exceptions import PreventUpdate
-    import pandas as pd
-    import plotly.graph_objs as go
-    import plotly.express as px
-    from sklearn.model_selection import train_test_split
-    from sklearn.model_selection import GridSearchCV
-    import numpy as np
-    from sklearn.svm import SVR
-    from datetime import date, timedelta
-    # load the data
+# Imports
+import yfinance
+import plotly.graph_objs
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.svm import SVR
+from datetime import date, timedelta
 
+
+def predictor(ticker, numberDays):
     # range of days to predict
-    df = yf.download(stock, period='60d')
-    df.reset_index(inplace=True)
-    df['Day'] = df.index
+    dateTime = yfinance.download(ticker, period='30d')
+    dateTime.reset_index(inplace=True)
+    dateTime['Day'] = dateTime.index
 
     # create a new column with the date of the day
     days = list()
-    for i in range(len(df.Day)):
+    for i in range(len(dateTime.Day)):
         days.append([i])
 
     X = days
-    Y = df[['Close']]
+    Y = dateTime[['Close']]
 
     # split the data into training and testing sets
-    x_train, x_test, y_train, y_test = train_test_split(X,
-                                                        Y,
-                                                        test_size=0.1,
-                                                        shuffle=False)
+    xAxis, x_test, yAxis, y_test = train_test_split(
+        X, Y, test_size=0.1, shuffle=False)
 
     # create and fit the model
-    gsc = GridSearchCV(
+    gridSearch = GridSearchCV(
         estimator=SVR(kernel='rbf'),
         param_grid={
             'C': [0.001, 0.01, 0.1, 1, 100, 1000],
@@ -46,31 +35,31 @@ def prediction(stock, numberDays):
             ],
             'gamma': [0.0001, 0.001, 0.005, 0.1, 1, 3, 5, 8, 40, 100, 1000]
         },
-        cv=5,
-        scoring='neg_mean_absolute_error',
-        verbose=0,
-        n_jobs=-1)
+        cv = 5,
+        scoring = 'neg_mean_squared_error',
+        verbose = 0,
+        n_jobs = -1)
 
     # fit the model
-    y_train = y_train.values.ravel()
-    y_train
-    grid_result = gsc.fit(x_train, y_train)
-    best_params = grid_result.best_params_
-    best_svr = SVR(kernel='rbf',
-                   C=best_params["C"],
-                   epsilon=best_params["epsilon"],
-                   gamma=best_params["gamma"],
-                   max_iter=-1)
+    yAxis = yAxis.values.ravel()
+    yAxis
+    gridExpect = gridSearch.fit(xAxis, yAxis)
+    best_params = gridExpect.best_params_
+    efficientModel = SVR(kernel='rbf',
+                         C=best_params["C"],
+                         epsilon = best_params["epsilon"],
+                         gamma = best_params["gamma"],
+                         max_iter =- 1)
 
-    # Support Vector Regression Model for the stock prediction
-    rbf_svr = best_svr
+    # Regression Models
+    regressionModel = efficientModel
 
-    rbf_svr.fit(x_train, y_train)
+    regressionModel.fit(xAxis, yAxis)
 
     # make predictions on the testing set
-    output_days = list()
+    numberOfDays = list()
     for i in range(1, numberDays):
-        output_days.append([i + x_test[-1][0]])
+        numberOfDays.append([i + x_test[-1][0]])
 
     dates = []
     current = date.today()
@@ -79,11 +68,11 @@ def prediction(stock, numberDays):
         dates.append(current)
 
     # make predictions on the testing set
-    fig = go.Figure()
+    fig = plotly.graph_objs.Figure()
     fig.add_trace(
-        go.Scatter(
+        plotly.graph_objs.Scatter(
             x=dates,
-            y=rbf_svr.predict(output_days),
+            y=regressionModel.predict(numberOfDays),
             mode='lines+markers',
             name='data'))
     fig.update_layout(
