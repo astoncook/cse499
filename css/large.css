@@ -3,7 +3,7 @@
 		width: 175px;
 	}
 
-	.heading h1 {
+	.heading h2 {
 		font-size: 3rem;
 		text-align: center;
 		margin: 0 0 0 675px;
@@ -37,7 +37,7 @@
 		width: 600px;
 	}
 
-	.button {
+	.button1, .button2, .button3 {
 		width: 625px;
 	}
 }

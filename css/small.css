@@ -21,7 +21,7 @@ header img {
 	flex-direction: column;
 }
 
-.heading h1 {
+.heading h2 {
 	font-size: 1.6rem;
 	margin: 0 0 0 50px;
 	text-align: center;
@@ -101,7 +101,7 @@ footer {
 	padding: 0;
 }
 
-.t1 {
+.companyTable1 {
 	color: white;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
@@ -149,7 +149,7 @@ body {
 }
 
 
-.search-wrapper {
+.search-container {
 	display: flex;
 	align-items: center;
 	background: white;
@@ -175,7 +175,7 @@ body {
 	border: none;
 }
 
-.line {
+.space {
 	width: 1px;
 	height: 40px;
 	background: black;
@@ -214,24 +214,20 @@ td, th {
 	display: flex;
 }
 
-.button {
-	width: 150px;
-	height: 55px;
-
-}
-
-.b1, .b2, .b3 {
+.button1, .button2, .button3 {
 	border: none;
 	background-color: transparent;
+	width: 150px;
+	height: 55px;
 }
 
-.b1:hover, .b2:hover, .b3:hover {
+.button1:hover, .button2:hover, .button3:hover {
 	background-color: black;
 	border: none;
 	color: white;
 }
 
-.b1:focus, .b2:focus, .b3:focus {
+.button1:focus, .button2:focus, .button3:focus {
 	background-color: grey;
 	outline: none;
 }

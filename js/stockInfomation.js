@@ -1,7 +1,7 @@
 var global = "";
 var mod = '';
 
-function getresult(event) {
+function fetchResult(event) {
   var x = document.getElementById('input').value
   if (x == "") {
     var mmmm = 0
@@ -25,8 +25,8 @@ function getresult(event) {
         } else {
           document.getElementById('error').style.display = 'block';
           document.getElementById('table1').style.display = 'none';
-          document.getElementById('choices').style.display = 'none';
-          document.getElementById('t2').style.display = 'none';
+          document.getElementById('navbar').style.display = 'none';
+          document.getElementById('table2').style.display = 'none';
           document.getElementById('container').style.display = 'none';
           document.getElementById('block4').style.display = 'none';
         }
@@ -43,7 +43,7 @@ function getresult(event) {
 };
 
 
-function get_result2(event) {
+function fetchResult2(event) {
   var req = new XMLHttpRequest();
   var form = document.getElementById('result');
   var FD = new FormData(form);
@@ -68,15 +68,15 @@ function get_result2(event) {
 function company() {
   mod = 1;
   document.getElementById('table1').style.display = 'block';
-  document.getElementById('t2').style.display = 'none';
+  document.getElementById('table2').style.display = 'none';
   document.getElementById('container').style.display = 'none';
   document.getElementById('block4').style.display = 'none';
-  document.getElementById('choices').style.display = 'block';
+  document.getElementById('navbar').style.display = 'block';
 }
 
-function stocksummary() {
+function stockInfo() {
   mod = 2;
-  document.getElementById('t2').style.display = 'block';
+  document.getElementById('table2').style.display = 'block';
   document.getElementById('table1').style.display = 'none';
   document.getElementById('container').style.display = 'none';
   document.getElementById('block4').style.display = 'none';
@@ -85,7 +85,7 @@ function stocksummary() {
 function charts() {
   mod = 3;
   document.getElementById('table1').style.display = 'none';
-  document.getElementById('t2').style.display = 'none';
+  document.getElementById('table2').style.display = 'none';
   document.getElementById('container').style.display = 'block';
   document.getElementById('block4').style.display = 'none';
 
@@ -213,56 +213,23 @@ function charts() {
   });
 }
 
-function get_result4(event) {
-  var req = new XMLHttpRequest();
-  var form = document.getElementById('result');
-  var FD = new FormData(form);
-
-  req.onreadystatechange = function () {
-    if (req.readyState == 4 && req.status == 200) {
-      var response = JSON.parse(req.responseText);
-      long = Object.keys(response).length;
-      var i = 0;
-      for (i; i < long; i += 1) {
-        var num = i.toString();
-        var box = "<div class='newsbox'>";
-        box += "<div style='background-image: url(" + response[i]["image"] + ");background-size: 100px 100px; height:150px; width:150px; background-repeat: no-repeat;'></div>";
-        box += "<p style='font-weight:bold;margin-left:120px; margin-top:-150px';>" + response[i]['headline'] + "</p>";
-        box += "<p style='margin-left:120px;'>" + response[i]['datetime'] + "</p>";
-        box += "<a style='margin-left:120px;' href='" + response[i]['url'] + "' target='_blank'> See Original Post </a></div>";
-        document.getElementById(num).innerHTML = box;
-
-      }
-    }
-  };
-
-  var param = new URLSearchParams(FD);
-  param = param.toString();
-  req.open('GET', '/route4?' + param, true);
-  req.send(null);
-  event.preventDefault();
-};
-
-
-
-function noresult() {
+function reset() {
   mod = 0;
   document.getElementById('table1').style.display = 'none';
-  document.getElementById('t2').style.display = 'none';
+  document.getElementById('table2').style.display = 'none';
   document.getElementById('container').style.display = 'none';
   document.getElementById('block4').style.display = 'none';
-  document.getElementById('choices').style.display = 'none';
+  document.getElementById('navbar').style.display = 'none';
   document.getElementById('error').style.display = 'none';
 }
 
-function abc() {
+function elementClicking() {
   if (mod == 2) {
-    document.getElementById('b2').click()
+    document.getElementById('button2').click()
   } else if (mod == 3) {
-    document.getElementById('b3').click()
-  } else if (mod == 4) {
-    document.getElementById('b4').click()
-  } else {
-    document.getElementById('b1').click()
+    document.getElementById('button3').click()
+  } 
+  else {
+    document.getElementById('button1').click()
   }
 };
