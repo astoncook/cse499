@@ -113,7 +113,6 @@ footer {
 }
 
 body {
-	background-image: url('back.svg');
 	background-repeat: no-repeat;
 	z-index: 0;
 }

@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stock Information</title>
     <meta name="description" content="This is my stocks 101 home page" />
+    <!-- My font from google API -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap"
       rel="stylesheet"
     />
+    <!-- My CSS with the normalize sheet too -->
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/small.css" />
     <link rel="stylesheet" href="css/medium.css" />
     <link rel="stylesheet" href="css/large.css" />
     <link href="images/favicon.ico" rel="shortcut icon" type="image/jpg" />
+    <!-- My JS pages -->
     <script src="js/nav.js" defer></script>
     <script src="js/stockInfomation.js" defer></script>
   </head>
@@ -23,22 +26,19 @@
     <header>
       <picture><img src="images/stockLogo.jpg" alt="Logo" /></picture>
       <section class="heading">
-        <h1>Stocks 101</h1>
+        <h2>Stocks 101</h2>
       </section>
     </header>
-    <nav id="nav">
-    <div class="innertube">
-      <h1>Navigation</h1>
-      <ul>
-        <li><a data-page="stockInformation.php">Stock Information</a></li>
-        <li><a data-page="stockPredictor.php">Stock Predictor</a></li>
+    <nav>
+      <!-- My navigation bar -->
+      <ul class="navigation responsive">
+        <li><a class="menu" href="#">Menu</a></li>
+        <li><a href="stockInformation.html">Stock Information</a></li>
+        <li><a href="stockPredictor.html">Stock Predictor</a></li>
       </ul>
-    </div>
-  </nav>
+    </nav>
     <main>
-    <div class="innertube">
-      <div id="page"></div>
-    </div>
+      <!-- My Header with the search bar -->
       <div class="back">
         <h1 class="t1">Stock Search</h1>
         <form action="/test" method="get" id="result" name="myform">
@@ -48,8 +48,7 @@
               alt="search"
               class="circle"
               onclick="getresult(event);abc();"
-              src="images/search-icon.jpg"
-            />
+              src="images/search-icon.jpg">
             <input
               type="text"
               id="input"
@@ -57,16 +56,14 @@
               class="search"
               placeholder="Enter Stock Ticker Symbol"
               oninvalid="this.setCustomValidity('Please fill out this field')"
-              onput="this.setCustomValidity('')"
-              required
-            />
+              onclick="this.setCustomValidity('')" required>
             <div class="line"></div>
             <input type="reset" value="Reset" id="rrr" style="display: none" />
             <img
+              alt="reset"
               onclick="noresult(); document.getElementById('rrr').click()"
               src="images/x-ixon.jpg"
-              class="delete"
-            />
+              class="delete">
           </div>
         </form>
       </div>
@@ -140,12 +137,6 @@
         </table>
       </div>
 
-      <script src="https://code.highcharts.com/stock/highstock.js"></script>
-      <script src="https://code.highcharts.com/stock/modules/data.js"></script>
-      <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-      <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-      <div class="container" id="container" style="display: none"></div>
-
       <div id="block4">
         <div id="0"></div>
         <div id="1"></div>
@@ -159,5 +150,4 @@
       </div>
     </main>
   </body>
-  <footer></footer>
 </html>

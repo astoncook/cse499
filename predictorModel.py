@@ -35,10 +35,10 @@ def predictor(ticker, numberDays):
             ],
             'gamma': [0.0001, 0.001, 0.005, 0.1, 1, 3, 5, 8, 40, 100, 1000]
         },
-        cv = 5,
-        scoring = 'neg_mean_squared_error',
-        verbose = 0,
-        n_jobs = -1)
+        cv=5,
+        scoring='neg_mean_absolute_error',
+        verbose=0,
+        n_jobs=-1)
 
     # fit the model
     yAxis = yAxis.values.ravel()
@@ -47,9 +47,9 @@ def predictor(ticker, numberDays):
     best_params = gridExpect.best_params_
     efficientModel = SVR(kernel='rbf',
                          C=best_params["C"],
-                         epsilon = best_params["epsilon"],
-                         gamma = best_params["gamma"],
-                         max_iter =- 1)
+                         epsilon=best_params["epsilon"],
+                         gamma=best_params["gamma"],
+                         max_iter=- 1)
 
     # Regression Models
     regressionModel = efficientModel

@@ -2,8 +2,6 @@ from dash import dash, dcc, html
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from predictorModel import predictor
-import requests
-from bs4 import BeautifulSoup
 
 # load the data
 app = dash.Dash(
@@ -13,7 +11,6 @@ app.layout = html.Div(
     [
         html.Div(
             [
-                # Navigation
                 html.P("Stock Predictor", className="start"),
                 html.Div([
                     html.P("Input stock ticker: "),
@@ -35,11 +32,10 @@ app.layout = html.Div(
             ],
             className="nav"),
 
-        # content
         html.Div(
             [
                 html.Div(
-                    [  # header
+                    [
                         html.Img(id="logo"),
                         html.P(id="ticker")
                     ],

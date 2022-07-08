@@ -25,7 +25,7 @@ function getresult(event) {
         } else {
           document.getElementById('error').style.display = 'block';
           document.getElementById('table1').style.display = 'none';
-          document.getElementById('navbar').style.display = 'none';
+          document.getElementById('choices').style.display = 'none';
           document.getElementById('t2').style.display = 'none';
           document.getElementById('container').style.display = 'none';
           document.getElementById('block4').style.display = 'none';
@@ -71,7 +71,7 @@ function company() {
   document.getElementById('t2').style.display = 'none';
   document.getElementById('container').style.display = 'none';
   document.getElementById('block4').style.display = 'none';
-  document.getElementById('navbar').style.display = 'block';
+  document.getElementById('choices').style.display = 'block';
 }
 
 function stocksummary() {
@@ -251,7 +251,7 @@ function noresult() {
   document.getElementById('t2').style.display = 'none';
   document.getElementById('container').style.display = 'none';
   document.getElementById('block4').style.display = 'none';
-  document.getElementById('navbar').style.display = 'none';
+  document.getElementById('choices').style.display = 'none';
   document.getElementById('error').style.display = 'none';
 }
 
