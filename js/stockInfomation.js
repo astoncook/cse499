@@ -50,7 +50,7 @@ function fetchResult2(event) {
   req.onreadystatechange = function () {
     if (req.readyState == 4 && req.status == 200) {
       var response = JSON.parse(req.responseText);
-      document.getElementById('STS').innerHTML = response['symbol']
+      document.getElementById('STS').innerHTML = response['ticker']
       document.getElementById('TD').innerHTML = response['t']
       document.getElementById('PCP').innerHTML = response['pc']
       document.getElementById('OP').innerHTML = response['o']

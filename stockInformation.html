@@ -34,6 +34,7 @@
       </ul>
     </nav>
     <main>
+      <!-- This is the search bar -->
         <h1 class="companyTable1">Stock Search</h1>
         <form action="/test" method="get" id="result">
           <div class="search-container">
@@ -44,6 +45,7 @@
               onclick="fetchResult(event);elementClicking();"
               src="images/search-icon.jpg"
             />
+      <!-- This is the text for the search bar -->
             <input
               type="text"
               id="input"
@@ -52,6 +54,7 @@
               placeholder="Enter Stock Symbol" required
             />
             <div class="space"></div>
+      <!-- This is the delete for the text box -->
             <input type="reset" value="Reset" id="reset" style="display: none" />
             <img
               alt="reset"
@@ -63,6 +66,7 @@
         </form>
       </div>
 
+      <!-- This is the results for the company results -->
       <div class="choices" id="choices">
         <button class="button1" id="button1" onclick="company();fetchResult(event);">
           Company
@@ -72,6 +76,7 @@
           id="button2"
           onclick="stockInfo();fetchResult2(event);"
         >
+      <!-- This is the stock financial for the stock -->
           Stock Summary
         </button>
         <button class="button3" id="button3" onclick="charts()">Charts</button>

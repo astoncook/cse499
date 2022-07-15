@@ -2,7 +2,14 @@ from dash import dash, dcc, html
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from predictorModel import predictor
+#from flask import Flask, jsonify, request
 
+#tried to use flask to get the data from the frontend, but it didn't work.
+#app = Flask(__name__, static_folder='')
+
+#@app.route('/', methods=['GET'])
+#def home():
+#    return app.send_static_file('stockInformation.html')
 # load the data
 app = dash.Dash(
     __name__,)
