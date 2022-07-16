@@ -6,54 +6,62 @@ import requests
 import calendar
 import dateutil.relativedelta
 
+# Flasks componenet that helps me run python on the server.
 app = Flask(__name__, static_folder='')
 
+# My API key (I tried to use it in my .env but it was giving me trouble).
 api_key = "caibu3aad3i2a9kc4c90"
 
+# This route gets the HTML file and sends the python logic to it in other routes.
 @app.route('/', methods=['GET'])
 def home():
     return app.send_static_file('stockInformation.html')
 
-@app.route('/test', methods=['GET'])
-def test():
+# This route gets the company information from the .js file and api.
+@app.route('/route1', methods=['GET'])
+def route1():
     global name
     global finnhub_client
     name = request.args.get('CPN')
-    url1 = "https://finnhub.io/api/v1/stock/profile2?symbol={}&token={}".format(
-        name, api_key)
-    company = requests.get(url1)
-    company = company.json()
-    return company
 
+# This api gets the conpany information like the name, symbol, and even IPO date.
+    api1 = "https://finnhub.io/api/v1/stock/profile2?symbol={}&token={}".format(
+        name, api_key)
+    companyInformation = requests.get(api1)
+    companyInformation = companyInformation.json()
+    return companyInformation
+
+# This route gets the stock summary information from the .js file and api.
 @app.route('/route2', methods=['GET'])
 def quote():
-    url2 = "https://finnhub.io/api/v1/quote?symbol={}&token={}".format(
+
+# This api gets the stock summary for the day and time when activated.
+    api2 = "https://finnhub.io/api/v1/quote?symbol={}&token={}".format(
         name, api_key)
-    data1 = requests.get(url2)
+    data1 = requests.get(api2)
     stock = data1.json()
     stock['t'] = time.strftime("%d %B, %Y", time.localtime(stock['t']))
-
-    url3 = "https://finnhub.io/api/v1/stock/recommendation?symbol={}&token={}".format(
-        name, api_key)
-    data2 = requests.get(url3)
     return stock
 
+# This route gets the chart information from the .js file and api.
 @app.route('/route3', methods=['GET'])
 def graph():
-    d2 = datetime.datetime.utcnow()
-    d1 = d2 + dateutil.relativedelta.relativedelta(months=-6, days=-1)
-    time1 = calendar.timegm(d1.utctimetuple())
-    time2 = calendar.timegm(d2.utctimetuple())
+    day2 = datetime.datetime.utcnow()
+    day1 = day2 + dateutil.relativedelta.relativedelta(months=-6, days=-1)
+    time1 = calendar.timegm(day1.utctimetuple())
+    time2 = calendar.timegm(day2.utctimetuple())
 
-    url4 = "https://finnhub.io/api/v1/stock/candle?symbol={}&resolution={}&from={}&to={}&token={}".format(
+# This api gets the candle/chart from the symbol entered.
+    api3 = "https://finnhub.io/api/v1/stock/candle?symbol={}&resolution={}&from={}&to={}&token={}".format(
         name, 'D', time1, time2, api_key)
-    data = requests.get(url4)
-    candles = data.json()
+    data = requests.get(api3)
+    price = data.json()
 
+# Helps display the chart in the html file.
     new_list = []
-    for i in range(len(candles['t'])):
+    for i in range(len(price['t'])):
         new_list.append(
-            [candles['t'][i]*1000, candles['c'][i], candles['v'][i]])
+            [price['t'][i]*1000, price['c'][i], price['v'][i]])
     return jsonify(new_list)
 
 

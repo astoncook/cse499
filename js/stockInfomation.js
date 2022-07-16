@@ -1,6 +1,8 @@
+// Defines the global and mod variables.
 var global = "";
 var mod = '';
 
+// Function to fetch the data from the server.
 function fetchResult(event) {
   var x = document.getElementById('input').value
   if (x == "") {
@@ -8,11 +10,13 @@ function fetchResult(event) {
   } else {
     var req = new XMLHttpRequest();
     var form = document.getElementById('result');
-    var FD = new FormData(form);
+    var dataForm = new FormData(form);
+    // This function is called when the request is ready.
     req.onreadystatechange = function () {
       if (req.readyState == 4 && req.status == 200) {
         var response = JSON.parse(req.responseText);
         var input1 = response['ticker'];
+        // If the input is not empty, then the following code is executed.
         if (input1 != undefined) {
           document.getElementById('logo').innerHTML = "<img class='logo1' src= " + response['logo'] + ">"
           document.getElementById('company').innerHTML = response['name']
@@ -21,7 +25,6 @@ function fetchResult(event) {
           document.getElementById('date').innerHTML = response['ipo']
           document.getElementById('category').innerHTML = response['finnhubIndustry']
           global = response['ticker']
-
         } else {
           document.getElementById('error').style.display = 'block';
           document.getElementById('table1').style.display = 'none';
@@ -34,23 +37,25 @@ function fetchResult(event) {
     }
   };
 
-  var param = new URLSearchParams(FD);
+  // Gets route 1 ready and sends it to the server.
+  var param = new URLSearchParams(dataForm);
   param = param.toString();
-  req.open('GET', '/test?' + param, true);
+  req.open('GET', '/route1?' + param, true);
   req.send(null);
   event.preventDefault();
 
 };
 
-
+// This function gets the data ready for route 2 and sends it to the server.
 function fetchResult2(event) {
   var req = new XMLHttpRequest();
   var form = document.getElementById('result');
-  var FD = new FormData(form);
+  var dataForm = new FormData(form);
   req.onreadystatechange = function () {
     if (req.readyState == 4 && req.status == 200) {
       var response = JSON.parse(req.responseText);
-      document.getElementById('STS').innerHTML = response['ticker']
+      // All of the stock summary data.
+      document.getElementById('STS').innerHTML = response['symbol']
       document.getElementById('TD').innerHTML = response['t']
       document.getElementById('PCP').innerHTML = response['pc']
       document.getElementById('OP').innerHTML = response['o']
@@ -58,14 +63,17 @@ function fetchResult2(event) {
       document.getElementById('LP').innerHTML = response['l']
     }
   }
-  var param = new URLSearchParams(FD);
+
+  // This is calling route 2 and sending the data to the server.
+  var param = new URLSearchParams(dataForm);
   param = param.toString();
   req.open('GET', '/route2?' + param, true);
   req.send(null);
   event.preventDefault();
 };
 
-function company() {
+// This function will help break up the company data and style it.
+function companyInformation() {
   mod = 1;
   document.getElementById('table1').style.display = 'block';
   document.getElementById('table2').style.display = 'none';
@@ -74,6 +82,7 @@ function company() {
   document.getElementById('navbar').style.display = 'block';
 }
 
+// This function will help break up the stock summary data and style it.
 function stockInfo() {
   mod = 2;
   document.getElementById('table2').style.display = 'block';
@@ -82,6 +91,7 @@ function stockInfo() {
   document.getElementById('block4').style.display = 'none';
 }
 
+// This function will help break up the chart data and style it.
 function charts() {
   mod = 3;
   document.getElementById('table1').style.display = 'none';
@@ -89,40 +99,36 @@ function charts() {
   document.getElementById('container').style.display = 'block';
   document.getElementById('block4').style.display = 'none';
 
+  // This is the start of the chart in nav bar column 3.
   Highcharts.getJSON('/route3', function (data) {
     const d = new Date()
     dd = d.getMonth() + 1
+    // This helps with the bottom scroll bar getting the full year info.
     datetime = d.getFullYear() + "-0" + dd + "-" + d.getDate()
-    var stockprice = [],
-      volume = [],
+    // This is the start of the chart.
+    var currentStockPrice = [],
       dataLength = data.length,
-
       i = 0;
 
+    // This is the loop that will help break up the data.
     for (i; i < dataLength; i += 1) {
-      stockprice.push([
+      currentStockPrice.push([
         data[i][0],
         data[i][1],
       ]);
-
-      volume.push([
-        data[i][0],
-        data[i][2]
-      ]);
     }
 
+    // This is the chart.
     Highcharts.stockChart('container', {
       rangeSelector: {
         selected: 1
       },
 
+      // This is the title of the chart.
       title: {
         text: global + ' Stock Price ' + datetime
       },
-      subtitle: {
-        text: '<a href="https://finnhub.io/." target="_blank">Source: Finnhub</a>'
-      },
-
+      // Labels for the x-axis.
       yAxis: [{
         opposite: false,
         labels: {
@@ -142,9 +148,6 @@ function charts() {
           align: 'right',
           x: -3
         },
-        title: {
-          text: 'Volume'
-        },
         height: '100%',
         offset: 0,
         lineWidth: 2
@@ -155,6 +158,7 @@ function charts() {
         }
       },
 
+      // Helps select range from a week to 3 months.
       rangeSelector: {
         selected: 0,
         inputEnabled: false,
@@ -174,22 +178,20 @@ function charts() {
           type: 'month',
           count: 3,
           text: '3m',
-        }, {
-          type: 'month',
-          count: 6,
-          text: '6m',
         }]
       },
 
-      //stock chart
+      // This is the data for the chart.
       series: [{
         name: global + ' Stock Price',
-        data: stockprice,
+        data: currentStockPrice,
         type: 'area',
         threshold: null,
         tooltip: {
           valueDecimals: 2
         },
+
+        // Filling the area between the two lines.
         fillColor: {
           linearGradient: {
             x1: 0,
@@ -197,22 +199,19 @@ function charts() {
             x2: 0,
             y2: 1
           },
+
+          // This is the color of the area.
           stops: [
             [0, Highcharts.getOptions().colors[0]],
             [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
           ]
         }
-      }, {
-        type: 'column',
-        name: 'Volume',
-        data: volume,
-        yAxis: 1,
-        color: 'grey'
       }]
     });
   });
 }
 
+// This function helps with the "x" button on the search bar.
 function reset() {
   mod = 0;
   document.getElementById('table1').style.display = 'none';
@@ -223,13 +222,13 @@ function reset() {
   document.getElementById('error').style.display = 'none';
 }
 
+// This function will return the data corresponding to the element clicked.
 function elementClicking() {
   if (mod == 2) {
     document.getElementById('button2').click()
   } else if (mod == 3) {
     document.getElementById('button3').click()
-  } 
-  else {
+  } else {
     document.getElementById('button1').click()
   }
 };
