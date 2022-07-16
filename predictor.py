@@ -66,12 +66,12 @@ app.layout = html.Div(
                State("stockTicker", "value")])
 
 # Define the stock prediction into the number of days entered
-def stockPrediction(n, numberDays, val):
-    if n == None:
+def stockPrediction(number, numberDays, value):
+    if number == None:
         return [""]
-    if val == None:
+    if value == None:
         raise PreventUpdate
-    fig = predictor(val, int(numberDays) + 1)
+    fig = predictor(value, int(numberDays) + 1)
     return [dcc.Graph(figure=fig)]
 
 

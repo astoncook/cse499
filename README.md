@@ -27,3 +27,5 @@ This documentation on APIs helped me with finnhub and importing the stock data o
 Here is some Flask documentation that helped me understand this framework: https://pythonbasics.org/what-is-flask-python/
 
 Here is the documentation that helped explain how to use HighCharts on python: https://github.com/kyper-data/python-highcharts
+
+Here is the Radial basis function kernel I used for my prediction model: https://en.wikipedia.org/wiki/Radial_basis_function_kernel
