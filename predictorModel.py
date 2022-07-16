@@ -76,9 +76,9 @@ def predictor(ticker, numberDays):
             mode='lines+markers',
             name='data'))
     fig.update_layout(
-        title="Predicted Close Price of next " + str(numberDays - 1) + " days",
+        title="Predicted Close Price of the next " + str(numberDays - 1) + " day(s)",
         xaxis_title="Date",
-        yaxis_title="Closed Price",
+        yaxis_title="Closing Price",
     )
 
     return fig

@@ -10,12 +10,15 @@ from predictorModel import predictor
 #@app.route('/', methods=['GET'])
 #def home():
 #    return app.send_static_file('stockInformation.html')
-# load the data
+
+
+# load the data into dash to display the chart
 app = dash.Dash(
     __name__,)
 server = app.server
 app.layout = html.Div(
     [
+        #All of the html because flask wasn't working.
         html.Div(
             [
                 html.P("Stock Predictor", className="start"),
@@ -26,14 +29,14 @@ app.layout = html.Div(
                     ],
                         className="form")
                 ],
-                    className="input-place"),
+                    className="inputPlace"),
 
                 html.Div([
                     dcc.Input(id="numberDays",
                               type="text",
                               placeholder="number of days"),
                     html.Button(
-                        "predictor", className="prediction-btn", id="predictor")
+                        "predictor", className="prediction", id="predictor")
                 ],
                     className="buttons"),
             ],
@@ -48,20 +51,21 @@ app.layout = html.Div(
                     ],
                     className="header"),
                 html.Div(id="description", className="ticker"),
-                html.Div([], id="graphs-content"),
-                html.Div([], id="main-content"),
-                html.Div([], id="prediction-content")
+                html.Div([], id="graphsContent"),
+                html.Div([], id="mainContent"),
+                html.Div([], id="predictionContent")
             ],
             className="content"),
     ],
     className="container")
 
 # Get the prediction and the graph
-@app.callback([Output("prediction-content", "children")],
+@app.callback([Output("predictionContent", "children")],
               [Input("predictor", "n_clicks")],
               [State("numberDays", "value"),
                State("stockTicker", "value")])
 
+# Define the stock prediction into the number of days entered
 def stockPrediction(n, numberDays, val):
     if n == None:
         return [""]
