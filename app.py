@@ -6,7 +6,7 @@ import requests
 import calendar
 import dateutil.relativedelta
 
-# Flasks componenet that helps me run python on the server.
+# Flasks component that helps me run python on the server.
 app = Flask(__name__, static_folder='')
 
 # My API key (I tried to use it in my .env but it was giving me trouble).
@@ -24,7 +24,7 @@ def route1():
     global finnhub_client
     name = request.args.get('CPN')
 
-# This api gets the conpany information like the name, symbol, and even IPO date.
+# This api gets the company information like the name, symbol, and even IPO date.
     api1 = "https://finnhub.io/api/v1/stock/profile2?symbol={}&token={}".format(
         name, api_key)
     companyInformation = requests.get(api1)
