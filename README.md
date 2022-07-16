@@ -1,6 +1,20 @@
 # cse499
 This is my senior project
 
+Must Have Requirements: “shall” 
+
+✔️The web application shall allow the user to enter a company's stock ticker and give the information to the corresponding company.
+
+✔️The web application shall allow the user to interact with the stock chart of the company and see price details within that chart. 
+
+(Kinda)The web application shall allow the user to switch between pages using the navigation bar in the header. 
+
+✔️The web application shall display the correct information when the user inputs it whether it is on the predictor or company summary. 
+
+✔️The web application shall use 3 different views and work on mobile, tablet, and computer screens. 
+
+✔️The web application shall allow the user to use the application without logging in or registering. 
+
 Here is the live site (Live site is down at the moment): https://stocks-information101.herokuapp.com/
 
 Special thanks to Krishni at DataDrivenInvestor for the tutorial on how to use the GridSearchCV and sklearn model
