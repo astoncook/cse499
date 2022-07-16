@@ -1,5 +1,6 @@
-# Imports
+# This one I used to get the API data for my stocks. This uses Yahoo finance.
 import yfinance
+# Imports
 import plotly.graph_objs
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVR
@@ -8,7 +9,8 @@ from datetime import date, timedelta
 
 def predictor(ticker, numberDays):
     # range of days to predict
-    dateTime = yfinance.download(ticker, period='30d')
+    # I noticed that after 7 day the prediction is not accurate so I capped it at 7.
+    dateTime = yfinance.download(ticker, period='7d')
     dateTime.reset_index(inplace=True)
     dateTime['Day'] = dateTime.index
 

@@ -29,3 +29,5 @@ Here is some Flask documentation that helped me understand this framework: https
 Here is the documentation that helped explain how to use HighCharts on python: https://github.com/kyper-data/python-highcharts
 
 Here is the Radial basis function kernel I used for my prediction model: https://en.wikipedia.org/wiki/Radial_basis_function_kernel
+
+Here is some documentation on the yfinance library that I used for the predictor: https://pypi.org/project/yfinance/
